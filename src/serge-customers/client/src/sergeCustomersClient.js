@@ -55,7 +55,7 @@ class SergeCustomersClient extends SergeClient {
       });
   }
 
-  create(obj) {
+  add(obj) {
     let url = this._baseUrl + SergeCustomersClient._api.create;
 
     return this._getAuth()
@@ -69,7 +69,7 @@ class SergeCustomersClient extends SergeClient {
           json: true
         };
 
-        return rp.get(options);
+        return rp.post(options);
       });
   }
 
