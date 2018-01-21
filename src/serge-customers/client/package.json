@@ -1,0 +1,19 @@
+{
+  "name": "serge-customers-client",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Igor Sowinski <igorsowinski.mail@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^22.1.4",
+    "nock": "^9.1.6"
+  },
+  "dependencies": {
+    "request-promise-native": "^1.0.5"
+  }
+}
