@@ -3,6 +3,7 @@
 const url = require("url");
 const rp = require("request-promise-native");
 const SergeClient = require("serge-common").SergeClient;
+const httpStatus = require("http-status-codes");
 
 const _api = {
   getAll: "/v1/customers",
@@ -63,6 +64,10 @@ class SergeCustomersClient extends SergeClient {
   get(id) {
     let url = this._baseUrl + SergeCustomersClient._api.get;
 
+    if (!id) {
+      return Promise.resolve(null);
+    }
+
     if (SergeCustomersClient.isResourceUrl(id, url)) {
       url = id;
     } else {
@@ -79,7 +84,13 @@ class SergeCustomersClient extends SergeClient {
           json: true
         };
 
-        return rp.get(options);
+        return rp.get(options)
+          .catch(err => {
+            if (err.statusCode === httpStatus.NOT_FOUND) {
+              return null;
+            }
+            throw err;
+          });
       });
   }
 
@@ -109,6 +120,10 @@ class SergeCustomersClient extends SergeClient {
 
   delete(id) {
     let url = this._baseUrl + SergeCustomersClient._api.delete;
+
+    if (!id) {
+      return Promise.resolve(false);
+    }
 
     if (SergeCustomersClient.isResourceUrl(id, url)) {
       url = id;

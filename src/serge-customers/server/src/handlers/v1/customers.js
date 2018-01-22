@@ -57,6 +57,10 @@ let post = (req, res) => {
           up: `${req.fullUrl}/v1/customers`,
         }
       });
+    })
+    .catch(err => {
+      winston.error(err);
+      res.status(HttpStatus.INTERNAL_SERVER_ERROR).json(new SergeError(err.message));
     });
 };
 

@@ -1,0 +1,271 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "serge-products",
+    "version": "1.0.0",
+    "title": "serge-products",
+    "contact": {
+      "email": "igorsowinski.mail@gmail.com"
+    }
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/v1/products": {
+      "get": {
+        "summary": "Show registered products.",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "showArchived",
+            "description": "Show archived entries",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "400": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          { "api_key": [] }
+        ]
+      },
+      "post": {
+        "summary": "Register a new product.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Product data",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "400": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          { "api_key": [] }
+        ]
+      }
+    },
+    "/v1/products/{id}": {
+      "get": {
+        "summary": "Retrieve individual product data.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Product ID",
+            "type": "string",
+            "format": "guid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "400": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          { "api_key": [] }
+        ]
+      },
+      "put": {
+        "summary": "Update individual product data.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Product ID",
+            "type": "string",
+            "format": "guid"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Product data",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "400": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          { "api_key": [] }
+        ]
+      },
+      "delete": {
+        "summary": "Delete individual product data.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Product ID",
+            "type": "string",
+            "format": "guid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "400": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          { "api_key": [] }
+        ]
+      }
+    }
+  },
+  "securityDefinitions": {
+    "api_key": {
+      "type": "apiKey",
+      "name": "api_key",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "Product": {
+      "type": "object",
+      "required": [
+        "name",
+        "source",
+        "minimumOrderableQuantity",
+        "batchQuantity"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string",
+          "format": "uri"
+        },
+        "minimumOrderableQuantity": {
+          "type": "number",
+          "format": "int32"
+        },
+        "batchQuantity": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "daysToShip": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "archived": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+    "Error": {
+      "type": "object",
+      "required": [
+        "message"
+      ],
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "object"
+        }
+      }
+    }
+  }
+}

@@ -1,3 +1,6 @@
 "use strict";
 
-module.exports = require("./src/sergeSourcesClient");
+module.exports = {
+  ISergeSourcesClient: require("./src/ISergeSourcesClient"),
+  SergeSourcesClient: require("./src/sergeSourcesClient")
+};

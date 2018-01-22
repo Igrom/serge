@@ -4,7 +4,7 @@
   "description": "Warehouse management system employing voice recognition",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --runInBand",
     "local": "node local"
   },
   "author": "Igor Sowinski <igorsowinski.mail@gmail.com>",

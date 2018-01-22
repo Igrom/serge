@@ -1,7 +1,7 @@
 "use strict";
 
 const assert = require("assert");
-const SergeSourcesClient = require("serge-sources-client");
+const SergeSourcesClient = require("serge-sources-client").SergeSourcesClient;
 
 const client = new SergeSourcesClient("http://localhost:4001");
 console.error = jest.fn();

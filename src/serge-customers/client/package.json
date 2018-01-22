@@ -14,7 +14,8 @@
     "nock": "^9.1.6"
   },
   "dependencies": {
-    "serge-common": "^1.0.0",
-    "request-promise-native": "^1.0.5"
+    "http-status-codes": "^1.3.0",
+    "request-promise-native": "^1.0.5",
+    "serge-common": "^1.0.0"
   }
 }

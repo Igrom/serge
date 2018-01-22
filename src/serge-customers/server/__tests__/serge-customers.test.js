@@ -1,7 +1,7 @@
 "use strict";
 
 const assert = require("assert");
-const SergeCustomersClient = require("serge-customers-client");
+const SergeCustomersClient = require("serge-customers-client").SergeCustomersClient;
 
 const client = new SergeCustomersClient("http://localhost:4000");
 console.error = jest.fn();
