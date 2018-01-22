@@ -5,8 +5,8 @@ const AWS = require("aws-sdk");
 
 const app = require("./src/app.local.js");
 
-const portNumber = 4000;
-const dynalitePortNumber = 4100;
+const portNumber = 4001;
+const dynalitePortNumber = 4101;
 const dependencies = require("./src/config.local.js");
 
 const dynaliteServer = dynalite({
@@ -19,14 +19,14 @@ dynaliteServer.listen(dynalitePortNumber, async err => {
   if (err) {
     throw err;
   }
-  console.log(`serge-customers Development: Local DynamoDB provisioned using Dynalite on port ${dynalitePortNumber}`);
+  console.log(`serge-sources Development: Local DynamoDB provisioned using Dynalite on port ${dynalitePortNumber}`);
   
-  await dependencies.ICustomers().createTable();
-
+  await dependencies.ISources().createTable();
+  
   app.listen(portNumber, err => {
     if (err) {
       throw err;
     }
-    console.log(`serge-customers Development: Listening on port ${portNumber}`);
+    console.log(`serge-sources Development: Listening on port ${portNumber}`);
   });
 });

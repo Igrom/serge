@@ -7,7 +7,7 @@ const uuid = require("uuid");
 const SergeError = require("serge-common").SergeError;
 
 let get = (req, res) => {
-  const client = req.dependencies.ICustomers();
+  const client = req.dependencies.ISources();
   let id = req.params.id;
 
   client.get(id)
@@ -21,10 +21,10 @@ let get = (req, res) => {
         data: data,
         links: {
           self: {
-            href: `${req.fullUrl}/v1/customers/${id}`
+            href: `${req.fullUrl}/v1/sources/${id}`
           },
           up: {
-            href: `${req.fullUrl}/v1/customers`
+            href: `${req.fullUrl}/v1/sources`
           }
         }
       });
@@ -36,7 +36,7 @@ let get = (req, res) => {
 };
 
 let put = (req, res) => {
-  const client = req.dependencies.ICustomers();
+  const client = req.dependencies.ISources();
 
   let id = req.params.id;
 
@@ -45,8 +45,8 @@ let put = (req, res) => {
       res.status(HttpStatus.OK).hal({
         data: req.body,
         links: {
-          self: `${req.fullUrl}/v1/customers/${id}`,
-          up: `${req.fullUrl}/v1/customers`,
+          self: `${req.fullUrl}/v1/sources/${id}`,
+          up: `${req.fullUrl}/v1/sources`,
         }
       });
     })
@@ -57,7 +57,7 @@ let put = (req, res) => {
 };
 
 let del = (req, res) => {
-  const client = req.dependencies.ICustomers();
+  const client = req.dependencies.ISources();
 
   let id = req.params.id;
 

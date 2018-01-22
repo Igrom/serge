@@ -17,7 +17,7 @@ class SergeClient {
     return ["http:", "https:"].indexOf(url.parse(value).protocol) !== -1;
   }
 
-  _getAuth() {
+  getAuth() {
     if (!this._auth) {
       return Promise.resolve(null);
     }

@@ -40,12 +40,12 @@ describe("SergeClient", () => {
     });
   });
 
-  describe("_getAuth()", () => {
+  describe("getAuth()", () => {
     it("works with undefined/null", async () => {
       let auth = null;
       let client = new SergeClient(baseUri, auth);
 
-      let result = await client._getAuth();
+      let result = await client.getAuth();
       assert.equal(result, null);
     });
 
@@ -53,7 +53,7 @@ describe("SergeClient", () => {
       let auth = authToken;
       let client = new SergeClient(baseUri, auth);
 
-      let result = await client._getAuth();
+      let result = await client.getAuth();
       assert.equal(result, auth);
     });
 
@@ -61,7 +61,7 @@ describe("SergeClient", () => {
       let auth = () => authToken;
       let client = new SergeClient(baseUri, auth);
 
-      let result = await client._getAuth();
+      let result = await client.getAuth();
       assert.equal(result, authToken);
     });
 
@@ -69,7 +69,7 @@ describe("SergeClient", () => {
       let auth = () => Promise.resolve(authToken);
       let client = new SergeClient(baseUri, auth);
 
-      let result = await client._getAuth();
+      let result = await client.getAuth();
       assert.equal(result, authToken);
     });
   });

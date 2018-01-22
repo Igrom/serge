@@ -1,11 +1,10 @@
 {
   "name": "serge-common",
-  "private": true,
   "version": "1.0.0",
   "description": "Base class for Serge service clients.",
   "main": "index.js",
   "scripts": {
-    "test": "jest --verbose"
+    "test": "jest --coverage"
   },
   "author": "Igor Sowinski <igorsowinski.mail@gmail.com>",
   "license": "ISC",

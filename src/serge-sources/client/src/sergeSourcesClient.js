@@ -5,17 +5,17 @@ const rp = require("request-promise-native");
 const SergeClient = require("serge-common").SergeClient;
 
 const _api = {
-  getAll: "/v1/customers",
-  get: "/v1/customers/{id}",
-  update: "/v1/customers/{id}",
-  add: "/v1/customers",
-  delete: "/v1/customers/{id}"
+  getAll: "/v1/sources",
+  get: "/v1/sources/{id}",
+  update: "/v1/sources/{id}",
+  add: "/v1/sources",
+  delete: "/v1/sources/{id}"
 };
 
-class SergeCustomersClient extends SergeClient {
+class SergeSourcesClient extends SergeClient {
   constructor(baseUrl, auth) {
     if (!baseUrl) {
-      baseUrl = SergeCustomersClient._defaultUrl;
+      baseUrl = SergeSourcesClient._defaultUrl;
     }
     super(baseUrl, auth);
   }
@@ -24,7 +24,7 @@ class SergeCustomersClient extends SergeClient {
     return this.getAuth()
       .then(auth => {
         let options = {
-          uri: this._baseUrl + SergeCustomersClient._api.getAll,
+          uri: this._baseUrl + SergeSourcesClient._api.getAll,
           headers: {
             Authorization: auth
           },
@@ -38,12 +38,12 @@ class SergeCustomersClient extends SergeClient {
         }
 
         return rp.get(options)
-          .then(resp => resp._embedded.customers);
+          .then(resp => resp._embedded.sources);
       });
   }
 
   add(obj) {
-    let url = this._baseUrl + SergeCustomersClient._api.add;
+    let url = this._baseUrl + SergeSourcesClient._api.add;
 
     return this.getAuth()
       .then(auth => {
@@ -61,14 +61,14 @@ class SergeCustomersClient extends SergeClient {
   }
 
   get(id) {
-    let url = this._baseUrl + SergeCustomersClient._api.get;
+    let url = this._baseUrl + SergeSourcesClient._api.get;
 
-    if (SergeCustomersClient.isResourceUrl(id, url)) {
+    if (SergeSourcesClient.isResourceUrl(id, url)) {
       url = id;
     } else {
       url = url.replace("{id}", id);
     }
- 
+
     return this.getAuth()
       .then(auth => {
         let options = {
@@ -84,9 +84,9 @@ class SergeCustomersClient extends SergeClient {
   }
 
   update(id, obj) {
-    let url = this._baseUrl + SergeCustomersClient._api.update;
+    let url = this._baseUrl + SergeSourcesClient._api.update;
 
-    if (SergeCustomersClient.isResourceUrl(id, url)) {
+    if (SergeSourcesClient.isResourceUrl(id, url)) {
       url = id;
     } else {
       url = url.replace("{id}", id);
@@ -108,14 +108,14 @@ class SergeCustomersClient extends SergeClient {
   }
 
   delete(id) {
-    let url = this._baseUrl + SergeCustomersClient._api.delete;
+    let url = this._baseUrl + SergeSourcesClient._api.delete;
 
-    if (SergeCustomersClient.isResourceUrl(id, url)) {
+    if (SergeSourcesClient.isResourceUrl(id, url)) {
       url = id;
     } else {
       url = url.replace("{id}", id);
     }
- 
+
     return this.getAuth()
       .then(auth => {
         let options = {
@@ -131,7 +131,7 @@ class SergeCustomersClient extends SergeClient {
   }
 }
 
-SergeCustomersClient._api = _api;
-SergeCustomersClient._defaultUrl = "https://customers.serge.sowinski.blue";
+SergeSourcesClient._api = _api;
+SergeSourcesClient._defaultUrl = "https://sources.serge.sowinski.blue";
 
-module.exports = SergeCustomersClient;
+module.exports = SergeSourcesClient;

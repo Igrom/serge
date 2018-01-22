@@ -1,0 +1,12 @@
+{
+  "name": "serge",
+  "version": "1.0.0",
+  "description": "Warehouse management system employing voice recognition",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "local": "node local"
+  },
+  "author": "Igor Sowinski <igorsowinski.mail@gmail.com>",
+  "license": "ISC"
+}

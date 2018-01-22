@@ -4,13 +4,13 @@ const assert = require("assert");
 const nock = require("nock");
 
 const paths = {
-  SergeCustomersClient: "../src/sergeCustomersClient"
+  SergeSourcesClient: "../src/sergeSourcesClient"
 };
-const SergeCustomersClient = require(paths.SergeCustomersClient);
+const SergeSourcesClient = require(paths.SergeSourcesClient);
 const baseUri = "http://localhost";
 const authToken = "auth";
 
-describe("SergeCustomersClient", () => {
+describe("SergeSourcesClient", () => {
   let test_serviceNock;
 
   describe("for getAll()", () => {
@@ -19,7 +19,7 @@ describe("SergeCustomersClient", () => {
         .get(() => true)
         .reply(200, {
           _embedded: {
-            _customers: []
+            _sources: []
           }
         });
     });
@@ -29,7 +29,7 @@ describe("SergeCustomersClient", () => {
     it("retrieves authentication", async () => {
       let auth = jest.fn()
         .mockReturnValue(authToken);
-      let client = new SergeCustomersClient(baseUri, auth);
+      let client = new SergeSourcesClient(baseUri, auth);
 
       await client.getAll();
       assert(auth.mock.calls.length);
@@ -48,7 +48,7 @@ describe("SergeCustomersClient", () => {
     it("retrieves authentication", async () => {
       let auth = jest.fn()
         .mockReturnValue(authToken);
-      let client = new SergeCustomersClient(baseUri, auth);
+      let client = new SergeSourcesClient(baseUri, auth);
 
       await client.add({"a": "b"});
       assert(auth.mock.calls.length);
@@ -67,7 +67,7 @@ describe("SergeCustomersClient", () => {
     it("retrieves authentication", async () => {
       let auth = jest.fn()
         .mockReturnValue(authToken);
-      let client = new SergeCustomersClient(baseUri, auth);
+      let client = new SergeSourcesClient(baseUri, auth);
 
       await client.get(123);
       assert(auth.mock.calls.length);
@@ -86,7 +86,7 @@ describe("SergeCustomersClient", () => {
     it("retrieves authentication", async () => {
       let auth = jest.fn()
         .mockReturnValue(authToken);
-      let client = new SergeCustomersClient(baseUri, auth);
+      let client = new SergeSourcesClient(baseUri, auth);
 
       await client.update(123, {});
       assert(auth.mock.calls.length);
@@ -105,7 +105,7 @@ describe("SergeCustomersClient", () => {
     it("retrieves authentication", async () => {
       let auth = jest.fn()
         .mockReturnValue(authToken);
-      let client = new SergeCustomersClient(baseUri, auth);
+      let client = new SergeSourcesClient(baseUri, auth);
 
       await client.delete(123);
       assert(auth.mock.calls.length);
