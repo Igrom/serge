@@ -7,7 +7,8 @@ const SergeClient = require("serge-common").SergeClient;
 const _api = {
   getAll: "/v1/customers",
   get: "/v1/customers/{id}",
-  create: "/v1/customers",
+  update: "/v1/customers/{id}",
+  add: "/v1/customers",
   delete: "/v1/customers/{id}"
 };
 
@@ -26,9 +27,27 @@ class SergeCustomersClient extends SergeClient {
           },
           json: true
         };
-        console.log(options);
 
-        return rp.get(options);
+        return rp.get(options)
+          .then(resp => resp._embedded.customers);
+      });
+  }
+
+  add(obj) {
+    let url = this._baseUrl + SergeCustomersClient._api.add;
+
+    return this._getAuth()
+      .then(auth => {
+        let options = {
+          uri: url,
+          headers: {
+            Authorization: auth
+          },
+          body: obj,
+          json: true
+        };
+
+        return rp.post(options);
       });
   }
 
@@ -55,8 +74,14 @@ class SergeCustomersClient extends SergeClient {
       });
   }
 
-  add(obj) {
-    let url = this._baseUrl + SergeCustomersClient._api.create;
+  update(id, obj) {
+    let url = this._baseUrl + SergeCustomersClient._api.update;
+
+    if (SergeCustomersClient.isResourceUrl(id, url)) {
+      url = id;
+    } else {
+      url = url.replace("{id}", id);
+    }
 
     return this._getAuth()
       .then(auth => {
@@ -69,7 +94,7 @@ class SergeCustomersClient extends SergeClient {
           json: true
         };
 
-        return rp.post(options);
+        return rp.put(options);
       });
   }
 
@@ -92,7 +117,7 @@ class SergeCustomersClient extends SergeClient {
           json: true
         };
 
-        return rp.get(options);
+        return rp.delete(options);
       });
   }
 }

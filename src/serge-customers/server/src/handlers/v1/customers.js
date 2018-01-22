@@ -8,7 +8,6 @@ const SergeError = require("serge-common").SergeError;
 
 let get = (req, res) => {
   const client = req.dependencies.ICustomers();
-      console.log(req.resource);
 
   client.getAll()
     .then(data => {
