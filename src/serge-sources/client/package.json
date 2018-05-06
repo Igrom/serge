@@ -5,9 +5,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --coverage"
+    "test": "jest --verbose --coverage"
   },
-  "author": "Igor Sowinski <igorsowinski.mail@gmail.com>",
+  "author": "Igor Sowinski <igor@sowinski.blue>",
   "license": "ISC",
   "devDependencies": {
     "jest": "^22.1.4",

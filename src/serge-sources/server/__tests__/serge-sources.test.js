@@ -1,5 +1,6 @@
 "use strict";
 
+// załadowanie modułów i definiowanie stałych
 const assert = require("assert");
 const SergeSourcesClient = require("serge-sources-client").SergeSourcesClient;
 
@@ -15,27 +16,34 @@ const source = {
   website: "https://www.example.com",
 };
 
+// definiowanie kategorii testów
 describe("serge-sources service", () => {
 
+  // definicja funkcja wykonywanej przed wykonaniem pierwszego testu
   beforeAll(() => new Promise(res => {
     require("../local");
     setTimeout(res, 100);
   }));
 
+  // definicja pierwszego testu
   it("functions correctly when posting and getting an entry", async () => {
     let postResult = await client.add(source);
+    // użycie funkcji "assert" sprawdzającej założenie testowe
     Object.keys(source).map(k => assert.equal(postResult[k], source[k]));
 
     let location = postResult._links.self.href;
     let getIdResult = await client.get(location);
+    // użycie funkcji "assert" sprawdzającej założenie testowe
     Object.keys(source).map(k => assert.equal(getIdResult[k], source[k]));
   });
 
+  // definicja drugiego testu
   it("lists the entry among all entries", async () => {
     let postResult = await client.add(source);
 
     let location = postResult._links.self.href;
     let getAllResult = await client.getAll();
+    // użycie funkcji "assert" sprawdzającej założenie testowe
     assert(getAllResult.find(source => source._links.self.href === location));
   });
 

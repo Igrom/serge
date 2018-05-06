@@ -17,15 +17,19 @@ const product = {
 
 describe("serge-products service", () => {
 
-  let sourcesNock = nock("http://localhost:4001")
-      .persist()
-      .get(() => true)
-      .reply(200, {});
-
   beforeAll(() => new Promise(res => {
     require("../local");
     setTimeout(res, 100);
   }));
+
+  beforeEach(() => {
+    let sourcesNock = nock(dependencies.sergeSourcesUrl)
+      .persist()
+      .get(() => true)
+      .reply(200, {});
+  });
+
+  afterEach(nock.cleanAll);
 
   it("functions correctly when posting and getting an entry", async () => {
     let postResult = await client.add(product);

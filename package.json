@@ -4,9 +4,9 @@
   "description": "Warehouse management system employing voice recognition",
   "main": "index.js",
   "scripts": {
-    "test": "jest --runInBand",
+    "test": "jest --verbose --forceExit",
     "local": "node local"
   },
-  "author": "Igor Sowinski <igorsowinski.mail@gmail.com>",
+  "author": "Igor Sowinski <igor@sowinski.blue>",
   "license": "ISC"
 }

@@ -7,7 +7,7 @@ const paths = {
   SergeCustomersClient: "../src/sergeCustomersClient"
 };
 const SergeCustomersClient = require(paths.SergeCustomersClient);
-const baseUri = "http://localhost";
+const baseUri = "http://localhost-customers";
 const authToken = "auth";
 
 describe("SergeCustomersClient", () => {
@@ -19,7 +19,7 @@ describe("SergeCustomersClient", () => {
         .get(() => true)
         .reply(200, {
           _embedded: {
-            _customers: []
+            customers: []
           }
         });
     });

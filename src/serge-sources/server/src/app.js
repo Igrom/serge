@@ -50,7 +50,7 @@ let buildApp = depPath => {
 
     // Swaggerize - validation error
     if (err.name === "ValidationError") {
-      res.status(httpStatus.UNAUTHORIZED).json(new SergeError(err.message));
+      res.status(httpStatus.BAD_REQUEST).json(new SergeError(err.message));
     }
 
     res.status(httpStatus.INTERNAL_SERVER_ERROR).json();

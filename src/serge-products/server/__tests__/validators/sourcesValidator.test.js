@@ -1,10 +1,8 @@
 "use strict";
 
 const assert = require("assert");
-const AssertionError = assert.AssertionError;
 const nock = require("nock");
 const SergeSourcesClient = require("serge-sources-client").SergeSourcesClient;
-
 
 const paths = {
   sourcesValidator: "../../src/validators/sourcesValidator"
@@ -41,7 +39,7 @@ describe("sourcesValidator", () => {
       } catch (err) {
         return "The error was thrown.";
       }
-      throw new AssertionError("An error was supposed to be thrown!");
+      throw new Error("An error was supposed to be thrown!");
     });
 
     it("throws an error if source is archived", async () => {
@@ -57,7 +55,7 @@ describe("sourcesValidator", () => {
       } catch (err) {
         return "The error was thrown.";
       }
-      throw new AssertionError("An error was supposed to be thrown!");
+      throw new Error("An error was supposed to be thrown!");
     });
 
     it("succeeds if source exists", async () => {

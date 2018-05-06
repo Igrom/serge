@@ -1,5 +1,6 @@
 "use strict";
 
+// załadowanie modułów i inicjalizacja stałych
 const url = require("url");
 const rp = require("request-promise-native");
 const SergeClient = require("serge-common").SergeClient;
@@ -13,7 +14,13 @@ const _api = {
   delete: "/v1/sources/{id}"
 };
 
+// klasa klienta
 class SergeSourcesClient extends SergeClient {
+
+  // konstruktor wykorzystujący wzorzec wstrzykiwania zależności,
+  // przyjmujący adres bazowy serwisu.
+  // Dzięki zastosowanemu wzorcowi możliwe jest korzystanie
+  // z klienta w celu łączenia się z różnymi implementacjami usługi.
   constructor(baseUrl, auth) {
     if (!baseUrl) {
       baseUrl = SergeSourcesClient._defaultUrl;
@@ -21,6 +28,7 @@ class SergeSourcesClient extends SergeClient {
     super(baseUrl, auth);
   }
 
+  // metoda zwracająca wszystkich dostawców
   getAll(showArchived) {
     return this.getAuth()
       .then(auth => {
@@ -38,11 +46,13 @@ class SergeSourcesClient extends SergeClient {
           });
         }
 
+        // wysłanie żądania HTTP
         return rp.get(options)
           .then(resp => resp._embedded.sources);
       });
   }
 
+  // metoda dodająca nowego dostawcę
   add(obj) {
     let url = this._baseUrl + SergeSourcesClient._api.add;
 

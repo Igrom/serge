@@ -7,7 +7,7 @@ const paths = {
   SergeSourcesClient: "../src/sergeSourcesClient"
 };
 const SergeSourcesClient = require(paths.SergeSourcesClient);
-const baseUri = "http://localhost";
+const baseUri = "http://localhost-sources";
 const authToken = "auth";
 
 describe("SergeSourcesClient", () => {
@@ -19,7 +19,7 @@ describe("SergeSourcesClient", () => {
         .get(() => true)
         .reply(200, {
           _embedded: {
-            _sources: []
+            sources: []
           }
         });
     });

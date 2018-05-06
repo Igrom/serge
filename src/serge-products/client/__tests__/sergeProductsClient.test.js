@@ -19,7 +19,7 @@ describe("SergeProductsClient", () => {
         .get(() => true)
         .reply(200, {
           _embedded: {
-            _products: []
+            products: []
           }
         });
     });

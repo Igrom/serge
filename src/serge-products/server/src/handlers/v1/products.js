@@ -3,7 +3,6 @@
 const HttpStatus = require("http-status-codes");
 const winston = require("winston");
 const uuid = require("uuid");
-const SergeSourcesClient = require("serge-sources-client");
 
 const SergeError = require("serge-common").SergeError;
 
