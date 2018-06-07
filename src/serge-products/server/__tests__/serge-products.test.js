@@ -19,7 +19,7 @@ describe("serge-products service", () => {
 
   beforeAll(() => new Promise(res => {
     require("../local");
-    setTimeout(res, 100);
+    setTimeout(res, 300);
   }));
 
   beforeEach(() => {

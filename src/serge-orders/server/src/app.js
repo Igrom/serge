@@ -13,6 +13,7 @@ const validationResult = require("express-validator/check").validationResult;
 
 const SergeError = require("serge-common").SergeError;
 const productsValidator = require("./validators/productsValidator");
+const customersValidator = require("./validators/customersValidator");
 
 let buildApp = depPath => {
   const app = express();
@@ -40,6 +41,10 @@ let buildApp = depPath => {
   // request validation
   app.use(checkBody("products")
     .custom(productsValidator)
+  );
+
+  app.use(checkBody("customer")
+    .custom(customersValidator)
   );
 
   //validation results

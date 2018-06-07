@@ -9,6 +9,7 @@ const dependencies = require("../src/config.local");
 console.error = jest.fn();
 
 const order = {
+  customer: dependencies.sergeCustomersUrl + "/v1/customers/123",
   expectedBy: new Date(),
   products: [
     {
@@ -30,11 +31,16 @@ describe("serge-orders service", () => {
 
   beforeAll(() => new Promise(res => {
     require("../local");
-    setTimeout(res, 100);
+    setTimeout(res, 300);
   }));
 
   beforeEach(() => {
     let productsNock = nock(dependencies.sergeProductsUrl)
+      .persist()
+      .get(() => true)
+      .reply(200, {});
+
+    let customersNock = nock(dependencies.sergeCustomersUrl)
       .persist()
       .get(() => true)
       .reply(200, {});

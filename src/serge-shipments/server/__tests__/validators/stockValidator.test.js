@@ -64,7 +64,7 @@ describe("stockValidator", () => {
       throw new Error("An error was supposed to be thrown!");
     });
 
-    it("succeeds if stock item exist", async () => {
+    it("succeeds if stock items exist", async () => {
       stockNock = nock(params.req.dependencies.sergeStockUrl)
         .persist()
         .get(() => true)

@@ -1,0 +1,278 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "serge-orders",
+    "version": "1.0.0",
+    "title": "serge-orders",
+    "contact": {
+      "email": "igor@sowinski.blue"
+    }
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/v1/shipments/plan": {
+      "post": {
+        "summary": "Calculate .",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "showArchived",
+            "description": "Show archived entries",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "400": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          { "api_key": [] }
+        ]
+      },
+      "post": {
+        "summary": "Register a new order.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Order data",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Order"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "400": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          { "api_key": [] }
+        ]
+      }
+    },
+    "/v1/orders/{id}": {
+      "get": {
+        "summary": "Retrieve individual order data.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Order ID",
+            "type": "string",
+            "format": "guid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "400": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          { "api_key": [] }
+        ]
+      },
+      "put": {
+        "summary": "Update individual order data.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Order ID",
+            "type": "string",
+            "format": "guid"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Order data",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Order"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "400": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          { "api_key": [] }
+        ]
+      },
+      "delete": {
+        "summary": "Delete individual order data.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Order ID",
+            "type": "string",
+            "format": "guid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "400": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          { "api_key": [] }
+        ]
+      }
+    }
+  },
+  "securityDefinitions": {
+    "api_key": {
+      "type": "apiKey",
+      "name": "api_key",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "Order": {
+      "type": "object",
+      "required": [
+        "products",
+        "expectedBy"
+      ],
+      "properties": {
+        "products": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/Product"
+          }
+        },
+        "expectedBy": {
+          "type": "string",
+          "format": "date"
+        },
+        "archived": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+    "Product": {
+      "type": "object",
+      "required": [
+        "product",
+        "quantity"
+      ],
+      "properties": {
+        "product": {
+          "type": "string",
+          "format": "uri"
+        },
+        "quantity": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "Error": {
+      "type": "object",
+      "required": [
+        "message"
+      ],
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "object"
+        }
+      }
+    }
+  }
+}

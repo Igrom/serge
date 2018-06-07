@@ -22,7 +22,7 @@ describe("serge-sources service", () => {
   // definicja funkcja wykonywanej przed wykonaniem pierwszego testu
   beforeAll(() => new Promise(res => {
     require("../local");
-    setTimeout(res, 100);
+    setTimeout(res, 300);
   }));
 
   // definicja pierwszego testu

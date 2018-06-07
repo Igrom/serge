@@ -9,7 +9,8 @@ const dependencies = require("../src/config.local");
 console.error = jest.fn();
 
 const shipment = {
-  arrivesBy: new Date(),
+  source: dependencies.sergeSourcesUrl + "/v1/sources/123",
+  expectedBy: new Date(),
   stock: [
     dependencies.sergeStockUrl + "/v1/stock/123",
     dependencies.sergeStockUrl + "/v1/stock/456",
@@ -21,11 +22,16 @@ describe("serge-shipments service", () => {
 
   beforeAll(() => new Promise(res => {
     require("../local");
-    setTimeout(res, 100);
+    setTimeout(res, 300);
   }));
 
   beforeEach(() => {
     let stockNock = nock(dependencies.sergeStockUrl)
+      .persist()
+      .get(() => true)
+      .reply(200, {});
+
+    let sourcesNock = nock(dependencies.sergeSourcesUrl)
       .persist()
       .get(() => true)
       .reply(200, {});
@@ -56,7 +62,7 @@ describe("serge-shipments service", () => {
     let location = postResult._links.self.href;
 
     let newShipment = Object.assign({}, shipment, {
-      arrivesBy: new Date()
+      expectedBy: new Date()
     });
     let putIdResult = await client.update(location, newShipment);
     Object.keys(shipment).map(k => assert.deepEqual(putIdResult[k], newShipment[k]));

@@ -13,6 +13,7 @@ const validationResult = require("express-validator/check").validationResult;
 
 const SergeError = require("serge-common").SergeError;
 const stockValidator = require("./validators/stockValidator");
+const sourcesValidator = require("./validators/sourcesValidator");
 
 let buildApp = depPath => {
   const app = express();
@@ -40,6 +41,10 @@ let buildApp = depPath => {
   // request validation
   app.use(checkBody("stock")
     .custom(stockValidator)
+  );
+
+  app.use(checkBody("source")
+    .custom(sourcesValidator)
   );
 
   //validation results
