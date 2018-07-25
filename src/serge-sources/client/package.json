@@ -1,6 +1,5 @@
 {
   "name": "serge-sources-client",
-  "private": true,
   "version": "1.0.0",
   "description": "",
   "main": "index.js",

@@ -1,5 +1,6 @@
 "use strict";
 
+const rp = require("request-promise-native");
 const url = require("url");
 const paramRegex = /^{.*}$/;
 
@@ -54,6 +55,12 @@ class SergeClient {
     });
 
     return urlSplit.join() === matchSplit.join();
+  }
+
+  getResourceDefinitions () {
+    let url = this._baseUrl = "/api"
+    return rp.get(url)
+      .then(data => data.definitions);
   }
 }
 

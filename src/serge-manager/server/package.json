@@ -26,6 +26,11 @@
     "express-validator": "^4.3.0",
     "http-status-codes": "^1.3.0",
     "serge-common": "^1.0.0",
+    "serge-locations-client": "^1.0.0",
+    "serge-orders-client": "^1.0.0",
+    "serge-products-client": "^1.0.0",
+    "serge-shipments-client": "^1.0.0",
+    "serge-stock-client": "^1.0.0",
     "swaggerize-express": "^4.0.5",
     "winston": "^2.4.0"
   }

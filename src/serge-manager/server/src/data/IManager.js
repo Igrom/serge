@@ -1,6 +1,6 @@
 "use strict";
 
-class IOrders {
+class IManager {
   getAll() {
     throw new Error("Not implemented");
   }
@@ -18,4 +18,4 @@ class IOrders {
   }
 }
 
-module.exports = IOrders;
+module.exports = IManager;

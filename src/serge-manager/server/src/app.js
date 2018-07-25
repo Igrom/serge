@@ -8,7 +8,6 @@ const awsServerlessExpressMiddleware = require("aws-serverless-express/middlewar
 const swaggerize = require("swaggerize-express");
 const httpStatus = require("http-status-codes");
 const winston = require("winston");
-const checkBody = require("express-validator/check").body;
 
 const SergeError = require("serge-common").SergeError;
 

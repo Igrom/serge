@@ -1,9 +1,9 @@
 {
   "swagger": "2.0",
   "info": {
-    "description": "serge-orders",
+    "description": "serge-manager",
     "version": "1.0.0",
-    "title": "serge-orders",
+    "title": "serge-manager",
     "contact": {
       "email": "igor@sowinski.blue"
     }
@@ -18,173 +18,9 @@
     "https"
   ],
   "paths": {
-    "/v1/shipments/plan": {
+    "/v1/planshipments": {
       "post": {
-        "summary": "Calculate .",
-        "parameters": [
-          {
-            "in": "query",
-            "name": "showArchived",
-            "description": "Show archived entries",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "400": {
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "500": {
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          }
-        },
-        "security": [
-          { "api_key": [] }
-        ]
-      },
-      "post": {
-        "summary": "Register a new order.",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "description": "Order data",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/Order"
-            }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "400": {
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "500": {
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          }
-        },
-        "security": [
-          { "api_key": [] }
-        ]
-      }
-    },
-    "/v1/orders/{id}": {
-      "get": {
-        "summary": "Retrieve individual order data.",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "required": true,
-            "description": "Order ID",
-            "type": "string",
-            "format": "guid"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "400": {
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "500": {
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          }
-        },
-        "security": [
-          { "api_key": [] }
-        ]
-      },
-      "put": {
-        "summary": "Update individual order data.",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "required": true,
-            "description": "Order ID",
-            "type": "string",
-            "format": "guid"
-          },
-          {
-            "in": "body",
-            "name": "body",
-            "description": "Order data",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/Order"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "400": {
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "500": {
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          }
-        },
-        "security": [
-          { "api_key": [] }
-        ]
-      },
-      "delete": {
-        "summary": "Delete individual order data.",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "required": true,
-            "description": "Order ID",
-            "type": "string",
-            "format": "guid"
-          }
-        ],
+        "summary": "Calculate new shipments from available orders.",
         "responses": {
           "200": {
             "description": "",
@@ -219,47 +55,6 @@
     }
   },
   "definitions": {
-    "Order": {
-      "type": "object",
-      "required": [
-        "products",
-        "expectedBy"
-      ],
-      "properties": {
-        "products": {
-          "type": "array",
-          "minItems": 1,
-          "items": {
-            "$ref": "#/definitions/Product"
-          }
-        },
-        "expectedBy": {
-          "type": "string",
-          "format": "date"
-        },
-        "archived": {
-          "type": "boolean",
-          "default": false
-        }
-      }
-    },
-    "Product": {
-      "type": "object",
-      "required": [
-        "product",
-        "quantity"
-      ],
-      "properties": {
-        "product": {
-          "type": "string",
-          "format": "uri"
-        },
-        "quantity": {
-          "type": "integer",
-          "format": "int32"
-        }
-      }
-    },
     "Error": {
       "type": "object",
       "required": [

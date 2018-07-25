@@ -2,10 +2,10 @@
 
 const AWS = require("aws-sdk");
 
-const IOrders = require("./IOrders");
-const tableName = "serge-orders";
+const IManager = require("./IManager");
+const tableName = "serge-manager";
 
-class OrdersDynamoDb {
+class ManagerDynamoDb {
   constructor(configuration) {
     this.client = new AWS.DynamoDB.DocumentClient(configuration);
     this.rawClient = new AWS.DynamoDB(configuration);
@@ -85,4 +85,4 @@ class OrdersDynamoDb {
   }
 }
 
-module.exports = OrdersDynamoDb;
+module.exports = ManagerDynamoDb;
