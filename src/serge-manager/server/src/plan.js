@@ -128,7 +128,19 @@ const getShipmentsFromDeficits = async (shipmentsClient, ordersClient, productsC
   return shipments;
 };
 
+const assignOrdersToLocations = async (locationsClient, ordersClient) => {
+  let allLocations = await locationsClient.getAll();
+  let allOrders = await ordersClient.getAll();
+
+  let ordersWithoutLocations = allOrders.filter(order => !allLocations.map(l => l.order).includes(order._links.self.href));
+  let locationsWithoutOrders = allLocations.filter(location => !location.order);
+
+  locationsWithoutOrders.map((location, index) => { location.order = ordersWithoutLocations[index] && ordersWithoutLocations[index]._links.self.href || undefined});
+  return locationsWithoutOrders;
+};
+
 module.exports = {
   calculateDeficits,
-  getShipmentsFromDeficits
+  getShipmentsFromDeficits,
+  assignOrdersToLocations
 };

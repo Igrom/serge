@@ -5,7 +5,7 @@ const winston = require("winston");
 const uuid = require("uuid");
 
 const serializeDate = require("../../common/serializeDate");
-const { calculateDeficits, getShipmentsFromDeficits } = require("../../plan");
+const { calculateDeficits, getShipmentsFromDeficits, assignOrdersToLocations } = require("../../plan");
 const SergeError = require("serge-common").SergeError;
 
 let post = async (req, res) => {
@@ -13,9 +13,11 @@ let post = async (req, res) => {
   const ordersClient = new req.dependencies.ISergeOrdersClient(req.dependencies.sergeOrdersUrl);
   const productsClient = new req.dependencies.ISergeProductsClient(req.dependencies.sergeProductsUrl);
   const stockClient = new req.dependencies.ISergeStockClient(req.dependencies.sergeStockUrl);
+  const locationsClient = new req.dependencies.ISergeLocationsClient(req.dependencies.sergeLocationsUrl);
 
   const deficits = await calculateDeficits(shipmentsClient, ordersClient);
   const shipments = await getShipmentsFromDeficits(shipmentsClient, ordersClient, productsClient, deficits);
+  const locations = await assignOrdersToLocations(locationsClient, ordersClient);
 
   for (let i = 0; i < shipments.length; i++) {
     let shipment = shipments[i];
@@ -35,6 +37,12 @@ let post = async (req, res) => {
   };
 
   let promises = shipments.map(shipment => shipmentsClient.add(shipment));
+  promises.concat(locations.map(location => {
+    let id = location._links.self.href;
+    delete location._links;
+    delete location.id;
+    return locationsClient.update(id, location);
+  }));
 
   Promise.all(promises)
     .then(() => res.status(HttpStatus.NO_CONTENT).end())

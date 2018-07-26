@@ -22,10 +22,137 @@
       "post": {
         "summary": "Calculate new shipments from available orders.",
         "responses": {
+          "204": {
+            "description": ""
+          },
+          "400": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          { "api_key": [] }
+        ]
+      }
+    },
+    "/v1/employees": {
+      "get": {
+        "summary": "Get all employees.",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Employee"
+            }
+          },
+          "400": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          { "api_key": [] }
+        ]
+      },
+      "post": {
+        "summary": "Add a new employee.",
+        "responses": {
           "200": {
             "description": "",
             "schema": {
               "$ref": "#/definitions/Error"
+            }
+          },
+          "400": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          { "api_key": [] }
+        ]
+      }
+    },
+    "/v1/employees/{id}": {
+      "get": {
+        "summary": "Retrieve individual employee data.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Order ID",
+            "type": "string",
+            "format": "guid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Employee"
+            }
+          },
+          "400": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "security": [
+          { "api_key": [] }
+        ]
+      }
+    },
+    "/v1/employees/{id}/action": {
+      "post": {
+        "summary": "Perform an action as an employee.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Order ID",
+            "type": "string",
+            "format": "guid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ActionResponse"
             }
           },
           "400": {
@@ -55,6 +182,39 @@
     }
   },
   "definitions": {
+    "Employee": {
+      "type": "object",
+      "required": [
+        "state"
+      ],
+      "properties": {
+        "state": {
+          "type": "object",
+          "properties": {
+            "currentStock": {
+              "type": "string"
+            },
+            "currentLocation": {
+              "type": "string"
+            },
+            "quantityToPlace": {
+              "type": "string"
+            },
+            "statedQuantity": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "ActionResponse": {
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "string"
+        }
+      }
+    },
     "Error": {
       "type": "object",
       "required": [

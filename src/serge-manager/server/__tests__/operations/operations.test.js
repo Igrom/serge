@@ -1,7 +1,12 @@
 "use strict";
 const assert = require("assert");
+const cloneDeep = require("lodash.clonedeep");
 
-const { chooseStock } = require("../../src/operations/operations");
+const {
+  chooseStock,
+  checkLocation,
+  placeSufficientMoreLocations,
+} = require("../../src/operations/operations");
 
 const stock = [
   {
@@ -79,7 +84,7 @@ const locations = [
     order: "orders/2",
     stock: [
       {
-        stock: "stock/2",
+        stock: "stock/1",
         quantity: 10
       },
       {
@@ -90,13 +95,17 @@ const locations = [
   }
 ]
 
-const stockClient = { getAll: () => stock };
-const ordersClient = { getAll: () => orders };
-const locationsClient = { getAll: () => locations };
+const stockClient = { getAll: () => cloneDeep(stock), get: (id) => cloneDeep(stock.find(s => s._links.self.href === id)) };
+const ordersClient = { getAll: () => cloneDeep(orders), get: (id) => cloneDeep(orders.find(s => s._links.self.href === id)) };
+const locationsClient = {
+  getAll: () => cloneDeep(locations),
+  get: (id) => cloneDeep(locations.find(l => l._links.self.href === id)),
+  update: () => {}
+};
 
 describe("for operations", () => {
   describe("for chooseStock()", () => {
-    it.only("chooses correct stockItem", async () => {
+    it("works", async () => {
       let employee = { state: {} };
 
       await chooseStock(employee, "1", stockClient, ordersClient, locationsClient);
@@ -114,6 +123,30 @@ describe("for operations", () => {
       await chooseStock(employee, "4", stockClient, ordersClient, locationsClient);
       assert.equal(employee.state.currentStock, "stock/4");
       assert.equal(employee.state.currentLocation, "locations/2");
+    });
+  });
+  
+  describe("for checkLocation()", () => {
+    it("works", async () => {
+      let employee = { state: {
+        currentStock: "stock/1",
+        currentLocation: "locations/2"
+      } };
+
+      await checkLocation(employee, "456", stockClient, ordersClient, locationsClient);
+      assert.equal(employee.state.quantityToPlace, 10);
+    });
+  });
+
+  describe("for placeSufficientMoreLocations()", () => {
+    it("works", async () => {
+      let employee = { state: {
+        currentStock: "stock/1",
+        currentLocation: "locations/2",
+        quantityToPlace: 10
+      } };
+
+      await placeSufficientMoreLocations(employee, "10", stockClient, ordersClient, locationsClient);
     });
   });
 });

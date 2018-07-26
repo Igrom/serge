@@ -1,0 +1,17 @@
+{
+  "name": "serge-mic",
+  "version": "1.0.0",
+  "description": "",
+  "main": "otest.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@google-cloud/speech": "^2.0.0",
+    "node-record-lpcm16": "^0.3.0",
+    "play-sound": "^1.1.2",
+    "serge-manager-client": "^1.0.0"
+  }
+}

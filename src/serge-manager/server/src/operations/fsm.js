@@ -7,28 +7,29 @@ class EmployeeFSM {
     this.states = {};
   }
 
-  initialize() {
-    if (!this.defaultState) {
-      throw new Error("The default state is not set up.");
-    }
-
-    this.state = this.defaultState;
+  initialize(state) {
+    this.state = state;
   }
 
   async move(text) {
     let currentState = this.states[this.state];
 
     for (let i = 0; i < currentState.transitions.length; i++) {
-      let funcResult = currentState.transitions[i].func(text);
+      console.log(this.state, ': trying transition', i);
+      let funcResult = await currentState.transitions[i].func(text);
       if (funcResult) {
         this.state = currentState.transitions[i].end;
+        break;
       }
     }
+
+    return await this.states[this.state].message();
   }
 
-  addState(state) {
+  addState(state, func) {
     this.states[state] = {
-      transitions: []
+      transitions: [],
+      message: func || (() => state)
     };
   }
 

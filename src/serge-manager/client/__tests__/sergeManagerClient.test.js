@@ -32,7 +32,26 @@ describe("SergeManagerClient", () => {
     });
   });
 
-  describe("for get()", () => {
+  describe("for addEmployee()", () => {
+    beforeEach(() => {
+      let test_serviceNock = nock(baseUri)
+        .post(() => true)
+        .reply(200, {});
+    });
+
+    afterEach(nock.cleanAll);
+
+    it("retrieves authentication", async () => {
+      let auth = jest.fn()
+        .mockReturnValue(authToken);
+      let client = new SergeManagerClient(baseUri, auth);
+
+      await client.addEmployee();
+      assert(auth.mock.calls.length);
+    });
+  });
+
+  describe("for getAllEmployees()", () => {
     beforeEach(() => {
       let test_serviceNock = nock(baseUri)
         .get(() => true)
@@ -46,7 +65,45 @@ describe("SergeManagerClient", () => {
         .mockReturnValue(authToken);
       let client = new SergeManagerClient(baseUri, auth);
 
-      await client.get(123);
+      await client.getAllEmployees();
+      assert(auth.mock.calls.length);
+    });
+  });
+
+  describe("for getEmployee()", () => {
+    beforeEach(() => {
+      let test_serviceNock = nock(baseUri)
+        .get(() => true)
+        .reply(200, {});
+    });
+
+    afterEach(nock.cleanAll);
+
+    it("retrieves authentication", async () => {
+      let auth = jest.fn()
+        .mockReturnValue(authToken);
+      let client = new SergeManagerClient(baseUri, auth);
+
+      await client.getEmployee("123");
+      assert(auth.mock.calls.length);
+    });
+  });
+
+  describe("for postAction()", () => {
+    beforeEach(() => {
+      let test_serviceNock = nock(baseUri)
+        .post(() => true)
+        .reply(200, {});
+    });
+
+    afterEach(nock.cleanAll);
+
+    it("retrieves authentication", async () => {
+      let auth = jest.fn()
+        .mockReturnValue(authToken);
+      let client = new SergeManagerClient(baseUri, auth);
+
+      await client.postAction("123", "text");
       assert(auth.mock.calls.length);
     });
   });
